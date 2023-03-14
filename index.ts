@@ -17,5 +17,6 @@ server.listen(port, ()=> {
 
 server.use(cors())
 server.use(express.json())
+server.use(express.urlencoded({extended:true}))
 server.use(morganMiddleware)
 server.use(router)

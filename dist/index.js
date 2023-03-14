@@ -16,6 +16,7 @@ server.listen(port, function () {
 });
 server.use((0, cors_1["default"])());
 server.use(express_1["default"].json());
+server.use(express_1["default"].urlencoded({ extended: true }));
 server.use(morganMiddlewares_1["default"]);
 server.use(routes_1["default"]);
 //# sourceMappingURL=index.js.map

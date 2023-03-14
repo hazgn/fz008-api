@@ -41,13 +41,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 exports.__esModule = true;
 var response_1 = __importDefault(require("../helpers/response"));
 var users_1 = __importDefault(require("../models/users"));
-var usersListAllcontroller = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+var usersListAllController = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var result, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, users_1["default"].listAllUsers()];
+                return [4 /*yield*/, users_1["default"].listAllUsersModel()];
             case 1:
                 result = _a.sent();
                 return [2 /*return*/, response_1["default"].success(res, 200, result)];
@@ -58,7 +58,121 @@ var usersListAllcontroller = function (req, res) { return __awaiter(void 0, void
         }
     });
 }); };
+var userByIdController = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var id, result, error_2;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                id = req.params.id;
+                if (!id.match(/^[0-9]+$/))
+                    return [2 /*return*/, response_1["default"].error(res, 400, 'Id Invalid!')];
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, users_1["default"].userByIdModel(Number(id))];
+            case 2:
+                result = _a.sent();
+                return [2 /*return*/, response_1["default"].success(res, 200, result)];
+            case 3:
+                error_2 = _a.sent();
+                return [2 /*return*/, response_1["default"].error(res, 500, error_2)];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); };
+var createUsersController = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var body, email, fullname, emailPattern, error_3;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                body = req.body;
+                email = body.email, fullname = body.fullname;
+                emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+                if (!email || !fullname)
+                    return [2 /*return*/, response_1["default"].error(res, 400, 'Need Input Email & Fullname')];
+                if (!emailPattern.test(email))
+                    return [2 /*return*/, response_1["default"].error(res, 400, 'Format Email is Invalid!')];
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, users_1["default"].createUserModel(body)];
+            case 2:
+                _a.sent();
+                return [2 /*return*/, response_1["default"].success(res, 200, {
+                        message: 'Create users is successed!'
+                    })];
+            case 3:
+                error_3 = _a.sent();
+                return [2 /*return*/, response_1["default"].error(res, 500, error_3)];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); };
+var editUsersController = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var body, params, id, email, fullname, emailPattern, result, error_4;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                body = req.body, params = req.params;
+                id = params.id;
+                email = body.email, fullname = body.fullname;
+                emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+                if (!id.match(/^[0-9]+$/))
+                    return [2 /*return*/, response_1["default"].error(res, 400, 'Id Invalid!')];
+                if (!email || !fullname)
+                    return [2 /*return*/, response_1["default"].error(res, 400, 'Need Input Email & Fullname')];
+                if (!emailPattern.test(email))
+                    return [2 /*return*/, response_1["default"].error(res, 400, 'Format Email is Invalid!')];
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, users_1["default"].editUsersModel(Number(id), body)];
+            case 2:
+                result = _a.sent();
+                if (result.affectedRows === 0)
+                    return [2 /*return*/, response_1["default"].error(res, 400, 'User Not Found')];
+                return [2 /*return*/, response_1["default"].success(res, 200, {
+                        message: 'Edit User is Successfull'
+                    })];
+            case 3:
+                error_4 = _a.sent();
+                return [2 /*return*/, response_1["default"].error(res, 500, error_4)];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); };
+var deleteUsersByIdController = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var params, id, result, error_5;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                params = req.params;
+                id = params.id;
+                if (!id.match(/^[0-9]+$/))
+                    return [2 /*return*/, response_1["default"].error(res, 400, 'Id Invalid!')];
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, users_1["default"].deleteuserModel(Number(id))];
+            case 2:
+                result = _a.sent();
+                if (result.affectedRows === 0)
+                    return [2 /*return*/, response_1["default"].error(res, 400, 'User Not Found!')];
+                return [2 /*return*/, response_1["default"].success(res, 200, {
+                        message: 'Delete User is Successfull'
+                    })];
+            case 3:
+                error_5 = _a.sent();
+                return [2 /*return*/, response_1["default"].error(res, 500, error_5)];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); };
 exports["default"] = {
-    usersListAllcontroller: usersListAllcontroller
+    usersListAllController: usersListAllController,
+    userByIdController: userByIdController,
+    createUsersController: createUsersController,
+    editUsersController: editUsersController,
+    deleteUsersByIdController: deleteUsersByIdController
 };
 //# sourceMappingURL=users.js.map
