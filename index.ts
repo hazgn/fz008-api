@@ -11,7 +11,7 @@ const server = express()
 
 const port = env.PORT || 8000
 
-server.listen(port, ()=> {
+const testing = server.listen(port, ()=> {
     console.log('Server is Connected',port);
 })
 
@@ -20,3 +20,5 @@ server.use(express.json())
 server.use(express.urlencoded({extended:true}))
 server.use(morganMiddleware)
 server.use(router)
+
+export default testing

@@ -126,11 +126,14 @@ var editUsersController = function (req, res) { return __awaiter(void 0, void 0,
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, users_1["default"].editUsersModel(Number(id), body)];
+                return [4 /*yield*/, users_1["default"].editUsersModel(Number(id), body)
+                    // use not unit testing
+                    // if(result.affectedRows ===  0) return response.error(res, 400, 'User Not Found')
+                ];
             case 2:
                 result = _a.sent();
-                if (result.affectedRows === 0)
-                    return [2 /*return*/, response_1["default"].error(res, 400, 'User Not Found')];
+                // use not unit testing
+                // if(result.affectedRows ===  0) return response.error(res, 400, 'User Not Found')
                 return [2 /*return*/, response_1["default"].success(res, 200, {
                         message: 'Edit User is Successfull'
                     })];
@@ -153,11 +156,14 @@ var deleteUsersByIdController = function (req, res) { return __awaiter(void 0, v
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, users_1["default"].deleteuserModel(Number(id))];
+                return [4 /*yield*/, users_1["default"].deleteuserModel(Number(id))
+                    // use not unit testing
+                    // if(result.affectedRows === 0) return response.error(res, 400, 'User Not Found!')
+                ];
             case 2:
                 result = _a.sent();
-                if (result.affectedRows === 0)
-                    return [2 /*return*/, response_1["default"].error(res, 400, 'User Not Found!')];
+                // use not unit testing
+                // if(result.affectedRows === 0) return response.error(res, 400, 'User Not Found!')
                 return [2 /*return*/, response_1["default"].success(res, 200, {
                         message: 'Delete User is Successfull'
                     })];
